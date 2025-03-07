@@ -13,6 +13,8 @@ var camera_size: Vector2i = Vector2i(12, 12)
 func _ready() -> void:
 	# duplicate tilemap for effective wrapping
 	main_map.size = Vector2i(24, 24)
+	var house = main_map.tile_set.get_pattern(0)
+	main_map.set_pattern(Vector2i(10, 10), house)
 	for coord in main_map.get_used_cells():
 		main_map.replicate_for_wrapping(coord)
 
