@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var main_map: Map = $TileMapLayer
+@onready var main_map: Map = $MainMap
 
 # input vars
 var press_time: float
