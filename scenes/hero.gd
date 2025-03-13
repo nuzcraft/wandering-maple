@@ -12,5 +12,5 @@ func _process(delta: float) -> void:
 	pass
 
 func move(vec: Vector2) -> Vector2:
-	position += vec * tile_size
+	position += (vec * tile_size)
 	return position

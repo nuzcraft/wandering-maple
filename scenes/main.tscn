@@ -533,6 +533,8 @@ texture_region_size = Vector2i(20, 20)
 
 [sub_resource type="TileSet" id="TileSet_6t20k"]
 tile_size = Vector2i(20, 20)
+terrain_set_0/mode = 0
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_ysxut")
 sources/1 = SubResource("TileSetAtlasSource_shurg")
 pattern_0 = SubResource("TileMapPattern_u0fia")
