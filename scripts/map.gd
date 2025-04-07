@@ -50,4 +50,7 @@ func set_solid_cells_from_pattern(pos: Vector2i, pattern: PATTERN) -> void:
 	
 func is_local_pos_solid(local_pos: Vector2) -> bool:
 	var map_pos = local_to_map(local_pos)
+	return is_map_pos_solid(map_pos)
+	
+func is_map_pos_solid(map_pos: Vector2i) -> bool:
 	return astar_grid.is_point_solid(map_pos)

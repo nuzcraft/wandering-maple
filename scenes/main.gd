@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var seed_string: String
+
 @onready var main_map: Map = $MainMap
 
 # input vars
@@ -9,17 +11,22 @@ var tile_size: int = 20
 
 # map vars
 var camera_size: Vector2i = Vector2i(12, 12)
+var rng: RandomNumberGenerator
+var level_generator: LevelGenerator
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	rng = RandomNumberGenerator.new()
+	if seed_string:
+		print('setting seed: %s' % seed_string)
+		rng.seed = seed_string.hash()
+	#rng.randomize()
+	level_generator = LevelGenerator.new(rng)
 	# duplicate tilemap for effective wrapping
-	main_map.size = Vector2i(24, 24)
-	main_map.create_astar()
-	var house = main_map.tile_set.get_pattern(main_map.PATTERN.HOUSE)
-	main_map.set_pattern(Vector2i(10, 10), house)
-	main_map.set_solid_cells_from_pattern(Vector2i(10, 10), main_map.PATTERN.HOUSE)
-	for coord in main_map.get_used_cells():
-		main_map.replicate_for_wrapping(coord)
+	var level_dict: Dictionary = level_generator.generate_level(main_map, 1)
+	main_map = level_dict["map"]
+	$Hero.position = main_map.map_to_local(level_dict["hero_spawn_coords"]) - Vector2(10, 10)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
