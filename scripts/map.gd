@@ -17,14 +17,11 @@ func replicate_for_wrapping(coord: Vector2i) -> void:
 	var src = get_cell_source_id(coord)
 	var atl_crd = get_cell_atlas_coords(coord)
 	var alt = get_cell_alternative_tile(coord)
-	set_cell(coord + Vector2i(-size.x, 0), src, atl_crd, alt)
-	set_cell(coord + Vector2i(size.x, 0), src, atl_crd, alt)
-	set_cell(coord + Vector2i(0, -size.y), src, atl_crd, alt)
-	set_cell(coord + Vector2i(0, size.y), src, atl_crd, alt)
-	set_cell(coord + Vector2i(-size.x, -size.y), src, atl_crd, alt)
-	set_cell(coord + Vector2i(size.x, size.y), src, atl_crd, alt)
-	set_cell(coord + Vector2i(size.x, -size.y), src, atl_crd, alt)
-	set_cell(coord + Vector2i(-size.x, size.y), src, atl_crd, alt)
+	for x in [-size.x, 0, size.x]:
+		for y in [-size.y, 0, size.y]:
+			var new_coord: Vector2i = coord + Vector2i(x, y)
+			if new_coord != coord:
+				set_cell(new_coord, src, atl_crd, alt)
 	
 func get_solid_cells_from_pattern(pattern: PATTERN) -> Array:
 	match pattern:
@@ -36,16 +33,10 @@ func get_solid_cells_from_pattern(pattern: PATTERN) -> Array:
 			
 func set_solid_cells_from_pattern(pos: Vector2i, pattern: PATTERN) -> void:
 	for cell in get_solid_cells_from_pattern(pattern):
-		var coord = pos + cell
-		astar_grid.set_point_solid(coord)
-		astar_grid.set_point_solid(coord + Vector2i(-size.x, 0))
-		astar_grid.set_point_solid(coord + Vector2i(size.x, 0))
-		astar_grid.set_point_solid(coord + Vector2i(0, -size.y))
-		astar_grid.set_point_solid(coord + Vector2i(0, size.y))
-		astar_grid.set_point_solid(coord + Vector2i(-size.x, -size.y))
-		astar_grid.set_point_solid(coord + Vector2i(size.x, size.y))
-		astar_grid.set_point_solid(coord + Vector2i(size.x, -size.y))
-		astar_grid.set_point_solid(coord + Vector2i(-size.x, size.y))
+		for x in [-size.x, 0, size.x]:
+			for y in [-size.y, 0, size.y]:
+				var coord: Vector2i = pos + cell + Vector2i(x, y)
+				astar_grid.set_point_solid(coord)
 	astar_grid.update()
 	
 func is_local_pos_solid(local_pos: Vector2) -> bool:
