@@ -21,6 +21,16 @@ window/size/viewport_width=500
 window/size/viewport_height=500
 window/size/resizable=false
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://test/": "yellow"
+}
+
 [input]
 
 left={
