@@ -36,4 +36,22 @@ func test_get_solid_cells_from_pattern():
 	assert_eq(map.get_solid_cells_from_pattern(-1), [])
 	map.free()
 	
+func test_set_solid_cells_from_pattern():
+	map.size = Vector2(5, 5)
+	map.create_astar()
+	var solid_cells = map.get_solid_cells_from_pattern(map.PATTERN.HOUSE)
+	map.set_solid_cells_from_pattern(Vector2i(0, 0), map.PATTERN.HOUSE)
+	for cell in solid_cells:
+		for x in [-map.size.x, 0, map.size.x]:
+			for y in [-map.size.y, 0, map.size.y]:
+				assert_true(map.astar_grid.is_point_solid(cell + Vector2i(x, y)), 'should be solid at %d, %d' % [cell.x + x, cell.y + y])
+	map.free()
+
+func test_is_map_pos_solid():
+	map.size = Vector2(2, 2)
+	map.create_astar()
+	map.astar_grid.set_point_solid(Vector2i(1, 1))
+	assert_true(map.is_map_pos_solid(Vector2i(1, 1)))
+	assert_false(map.is_map_pos_solid(Vector2i(0, 0)))
+	map.free()	
 	
