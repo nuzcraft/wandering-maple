@@ -16,6 +16,7 @@ func generate_level(map: Map, level: int) -> Dictionary:
 			var house_pos: Vector2i = Vector2i(rng.randi_range(0, 23), rng.randi_range(0, 23))
 			map.set_pattern(house_pos, house)
 			map.set_solid_cells_from_pattern(house_pos, map.PATTERN.HOUSE)
+			map.set_interactables_from_pattern(house_pos, map.PATTERN.HOUSE)
 			for coord in map.get_used_cells():
 				map.replicate_for_wrapping(coord)
 			level_dict["map"] = map

@@ -67,6 +67,12 @@ func _process(delta: float) -> void:
 		$Hero.position.y = main_map.map_to_local(-camera_size / 2).y + 10
 
 func move_hero(vec: Vector2) -> void:
+	match main_map.get_interactable_local_pos($Hero.position + vec * tile_size):
+		"door":
+			print("door")
+		_:
+			pass
+	
 	if main_map.is_local_pos_solid($Hero.position + vec * tile_size):
 		print("solid")
 	else:

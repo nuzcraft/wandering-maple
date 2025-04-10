@@ -55,3 +55,30 @@ func test_is_map_pos_solid():
 	assert_false(map.is_map_pos_solid(Vector2i(0, 0)))
 	map.free()	
 	
+func test_interactable_init():
+	var interactable: Map.Interactable = map.Interactable.new("interactable", Vector2i(1, 2))
+	assert_eq(interactable.name, "interactable")
+	assert_eq(interactable.map_coords, Vector2i(1, 2))
+	map.free()
+	
+func test_get_interactable_from_pattern():
+	var house_interactables: Array[Map.Interactable] = map.get_interactables_from_pattern(map.PATTERN.HOUSE)
+	assert_eq(house_interactables[0].name, "door")
+	assert_eq(house_interactables[0].map_coords, Vector2i(1, 2))
+	assert_eq(map.get_interactables_from_pattern(-1), [])
+	map.free()
+	
+func test_set_interactables_from_pattern():
+	map.size = Vector2(5, 5)
+	var house_interactables: Array[Map.Interactable] = map.get_interactables_from_pattern(map.PATTERN.HOUSE)
+	map.set_interactables_from_pattern(Vector2i(0, 0), map.PATTERN.HOUSE)
+	for i in house_interactables:
+		for x in [-map.size.x, 0, map.size.x]:
+			for y in [-map.size.y, 0, map.size.y]:
+				# make sure the new interactable is in the list
+				pass
+	map.free()
+	
+func test_get_interactable_map_pos():
+	pass
+	
