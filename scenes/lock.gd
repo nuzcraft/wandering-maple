@@ -1,9 +1,10 @@
 extends Control
+class_name Lock
 
 signal confirm
 signal exit
 
-@onready var tumbler_options: = \
+@onready var tumbler_options := \
 	[['a', 'b', 'c'], \
 	['d', 'e', 'f'], \
 	['g', 'h', 'i']]
@@ -50,11 +51,12 @@ func cycle_tumbler(num: int, direction: String) -> String:
 								tumbler_container.get_node("Label").text = tumbler_options[num][len(tumbler_options[num]) - 1]
 							else:
 								tumbler_container.get_node("Label").text = tumbler_options[num][j - 1]
-						else: 
+						elif direction == "down":
 							if j == len(tumbler_options[num]) - 1:
 								tumbler_container.get_node("Label").text = tumbler_options[num][0]
 							else:
 								tumbler_container.get_node("Label").text = tumbler_options[num][j + 1]
+						else: return ""
 						break
 				return tumbler_container.get_node("Label").text
 	return ""
