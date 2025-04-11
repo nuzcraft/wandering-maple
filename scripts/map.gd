@@ -6,6 +6,7 @@ var astar_grid: AStarGrid2D
 var interactables: Array[Interactable]
 
 enum PATTERN {
+	UNKNOWN = -1,
 	HOUSE,
 }
 

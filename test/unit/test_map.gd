@@ -33,7 +33,7 @@ func test_get_solid_cells_from_pattern():
 	var house_cells = [Vector2i(0, 1), Vector2i(0, 2), Vector2i(1, 1), \
 					Vector2i(1, 2), Vector2i(2, 1), Vector2i(2, 2)]
 	assert_eq(map.get_solid_cells_from_pattern(map.PATTERN.HOUSE), house_cells)
-	assert_eq(map.get_solid_cells_from_pattern(-1), [])
+	assert_eq(map.get_solid_cells_from_pattern(map.PATTERN.UNKNOWN), [])
 	map.free()
 	
 func test_set_solid_cells_from_pattern():
@@ -65,7 +65,7 @@ func test_get_interactable_from_pattern():
 	var house_interactables: Array[Map.Interactable] = map.get_interactables_from_pattern(map.PATTERN.HOUSE)
 	assert_eq(house_interactables[0].name, "door")
 	assert_eq(house_interactables[0].map_coords, Vector2i(1, 2))
-	assert_eq(map.get_interactables_from_pattern(-1), [])
+	assert_eq(map.get_interactables_from_pattern(map.PATTERN.UNKNOWN), [])
 	map.free()
 
 func test_get_interactable_map_pos():
