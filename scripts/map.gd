@@ -6,6 +6,7 @@ var astar_grid: AStarGrid2D
 var interactables: Array[Interactable]
 
 enum PATTERN {
+	UNKNOWN = -1,
 	HOUSE,
 }
 
@@ -56,13 +57,13 @@ func get_interactables_from_pattern(pattern: PATTERN) -> Array[Interactable]:
 		_:
 			return []
 
-func set_interactables_from_pattern(pos: Vector2i ,pattern: PATTERN) -> void:
+func set_interactables_from_pattern(pos: Vector2i, pattern: PATTERN) -> void:
 	for thing in get_interactables_from_pattern(pattern):
 		for x in [-size.x, 0, size.x]:
 			for y in [-size.y, 0, size.y]:
-				var name: String = thing.name
+				var thing_name: String = thing.name
 				var coord: Vector2i = pos + thing.map_coords + Vector2i(x, y)
-				var new_interactable = Interactable.new(name, coord)
+				var new_interactable = Interactable.new(thing_name, coord)
 				interactables.append(new_interactable)
 	
 func is_local_pos_solid(local_pos: Vector2) -> bool:

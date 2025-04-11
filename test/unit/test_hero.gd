@@ -18,6 +18,7 @@ func after_all():
 	
 func test_tile_size():
 	assert_eq(hero.tile_size, 20, 'tile size hard coded to 20')
+	hero.free()
 	
 func test_move():
 	hero.position = Vector2(0, 0)
