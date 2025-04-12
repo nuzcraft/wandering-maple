@@ -8,9 +8,11 @@ func before_each():
 	lock = lock_scene.instantiate()
 
 func test_on_confirm_button_pressed():
+	lock._ready()
 	watch_signals(lock)
-	lock._on_confirm_button_pressed()
+	var code: Array = lock._on_confirm_button_pressed()
 	assert_signal_emitted(lock, "confirm")
+	assert_eq(code, ['a', 'd', 'g'])
 	lock.free()
 
 func test_on_exit_button_pressed():

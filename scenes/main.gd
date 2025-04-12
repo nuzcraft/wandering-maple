@@ -3,6 +3,8 @@ extends Node2D
 @export var seed_string: String
 
 @onready var main_map: Map = $MainMap
+@onready var lock: Lock = $UICanvasLayer/Lock
+@onready var color_rect: ColorRect = $UICanvasLayer/ColorRect
 
 # input vars
 var press_time: float
@@ -13,6 +15,7 @@ var tile_size: int = 20
 var camera_size: Vector2i = Vector2i(12, 12)
 var rng: RandomNumberGenerator
 var level_generator: LevelGenerator
+var level_combination: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,7 +29,8 @@ func _ready() -> void:
 	var level_dict: Dictionary = level_generator.generate_level(main_map, 1)
 	main_map = level_dict["map"]
 	$Hero.position = main_map.map_to_local(level_dict["hero_spawn_coords"]) - Vector2(10, 10)
-	
+	level_combination = level_dict["exit_code"]
+	lock.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -69,12 +73,34 @@ func _process(delta: float) -> void:
 func move_hero(vec: Vector2) -> void:
 	match main_map.get_interactable_local_pos($Hero.position + vec * tile_size):
 		"door":
-			print("door")
+			show_lock()
 		_:
 			pass
-	
 	if main_map.is_local_pos_solid($Hero.position + vec * tile_size):
-		print("solid")
+		#print("solid")
+		pass
 	else:
 		$Hero.move(vec)	
+	
+func hide_lock() -> void:
+	lock.hide()
+	var tween = get_tree().create_tween()
+	tween.tween_property(color_rect, "modulate:a", 0, 0.15).set_ease(Tween.EASE_OUT)
+	
+func show_lock() -> void:
+	lock.show()
+	var tween = get_tree().create_tween()
+	tween.tween_property(color_rect, "modulate:a", 0.75, 0.15).set_ease(Tween.EASE_OUT)
+	
+func check_combination(entered_combo: Array) -> bool:
+	print(entered_combo)
+	if entered_combo == level_combination:
+		print("code correct!")
+		hide_lock()
+		return true
+	else:
+		print("wrong code!")
+		return false
+	
+	
 	

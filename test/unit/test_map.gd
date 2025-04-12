@@ -56,9 +56,10 @@ func test_is_map_pos_solid():
 	map.free()
 	
 func test_interactable_init():
-	var interactable: Map.Interactable = map.Interactable.new("interactable", Vector2i(1, 2))
+	var interactable: Map.Interactable = map.Interactable.new("interactable", Vector2i(1, 2), "thing")
 	assert_eq(interactable.name, "interactable")
 	assert_eq(interactable.map_coords, Vector2i(1, 2))
+	assert_eq(interactable.type, "thing")
 	map.free()
 	
 func test_get_interactable_from_pattern():

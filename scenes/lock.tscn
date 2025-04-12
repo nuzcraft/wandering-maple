@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://co13ck8kauahl" path="res://scenes/lock.gd" id="1_60jus"]
 
 [node name="Lock" type="Control"]
+z_index = 1
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

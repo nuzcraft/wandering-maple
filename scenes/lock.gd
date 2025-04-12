@@ -18,9 +18,14 @@ func _ready() -> void:
 			tumbler_container.get_node("Label").text = tumbler_options[tumbler_num][0]
 			tumbler_num += 1
 
-func _on_confirm_button_pressed() -> void:
+func _on_confirm_button_pressed() -> Array:
 	print("confirm pressed")
-	confirm.emit()
+	var combo_array = []
+	for tumbler_container in lock_h_box_container.get_children():
+		if tumbler_container is VBoxContainer:
+			combo_array.append(tumbler_container.get_node("Label").text)
+	confirm.emit(combo_array)
+	return combo_array
 
 func _on_exit_button_pressed() -> void:
 	print("exit pressed")
