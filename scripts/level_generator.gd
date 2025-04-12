@@ -36,6 +36,7 @@ func generate_level(map: Map, level: int) -> Dictionary:
 							i += 1
 							print(hero_pos, " is dead")
 				level_dict["hero_spawn_coords"] = hero_pos
+				level_dict["exit_code"] = ['a', 'd', 'g']
 		_:
 			pass
 	return level_dict
